@@ -4,3 +4,10 @@ __pycache__/
 .env
 node_modules/
 .next/
+
+
+# APM dependencies
+apm_modules/
+.claude/
+.cursor/
+.codex/
