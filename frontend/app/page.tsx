@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { apiFetch } from "@/lib/api";
 import { createRoom } from "./actions";
 
@@ -7,6 +8,7 @@ type Room = {
   id: string;
   name: string;
   capacity: number;
+  description: string | null;
 };
 
 export default async function HomePage({
@@ -36,7 +38,10 @@ export default async function HomePage({
         <ul>
           {rooms.map((room) => (
             <li key={room.id}>
-              <strong>{room.name}</strong> — {room.capacity} personas
+              <strong>
+                <Link href={`/rooms/${room.id}`}>{room.name}</Link>
+              </strong> — {room.capacity} personas
+              {room.description && <p>{room.description}</p>}
             </li>
           ))}
         </ul>
@@ -52,6 +57,10 @@ export default async function HomePage({
         <label>
           Capacidad
           <input name="capacity" type="number" min={1} required />
+        </label>
+        <label>
+          Descripción (opcional)
+          <textarea name="description" maxLength={500} />
         </label>
         <button type="submit">Crear sala</button>
       </form>

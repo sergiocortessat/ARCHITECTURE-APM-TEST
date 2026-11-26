@@ -1,0 +1,22 @@
+[importlinter]
+root_package = app
+include_external_packages = True
+
+[importlinter:contract:infra-no-presentacion]
+name = La infraestructura (db) no importa presentacion ni el framework
+type = forbidden
+source_modules = app.db
+forbidden_modules =
+    app.rooms
+    app.bookings
+    app.main
+    fastapi
+
+[importlinter:contract:raiz-no-importada]
+name = Nada importa la raiz de composicion
+type = forbidden
+source_modules =
+    app.rooms
+    app.bookings
+    app.db
+forbidden_modules = app.main

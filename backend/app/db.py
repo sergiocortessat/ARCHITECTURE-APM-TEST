@@ -19,7 +19,8 @@ def init_db():
         CREATE TABLE IF NOT EXISTS rooms (
             id TEXT PRIMARY KEY,
             name TEXT UNIQUE NOT NULL,
-            capacity INTEGER NOT NULL
+            capacity INTEGER NOT NULL,
+            description TEXT
         );
 
         CREATE TABLE IF NOT EXISTS bookings (
@@ -32,4 +33,7 @@ def init_db():
         );
         """
     )
+    columns = [row["name"] for row in conn.execute("PRAGMA table_info(rooms)")]
+    if "description" not in columns:
+        conn.execute("ALTER TABLE rooms ADD COLUMN description TEXT")
     conn.commit()
