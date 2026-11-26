@@ -7,10 +7,11 @@ import { apiFetch } from "@/lib/api";
 export async function createRoom(formData: FormData) {
   const name = String(formData.get("name") ?? "").trim();
   const capacity = Number(formData.get("capacity"));
+  const description = String(formData.get("description") ?? "").trim() || null;
 
   const res = await apiFetch("/rooms", {
     method: "POST",
-    body: JSON.stringify({ name, capacity }),
+    body: JSON.stringify({ name, capacity, description }),
   });
 
   if (!res.ok) {
@@ -23,6 +24,8 @@ export async function createRoom(formData: FormData) {
     let message = "No se pudo crear la sala";
     if (error.detail.includes("UNIQUE")) {
       message = "Ya existe una sala con ese nombre";
+    } else if (res.status === 422 && error.detail.includes("description")) {
+      message = "La descripción no puede superar los 500 caracteres";
     } else if (res.status === 422) {
       message = "Revisa el nombre y la capacidad";
     }

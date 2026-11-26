@@ -4,3 +4,4 @@ pydantic==2.14.4
 email-validator==2.4.0
 pytest==9.2.0
 httpx2==2.16.2
+import-linter==2.17

@@ -12,3 +12,5 @@ apm_modules/
 .claude/
 .cursor/
 .codex/
+# TypeScript incremental build info
+*.tsbuildinfo
